@@ -10,7 +10,7 @@ def welch_t(a, b):
     
     # “ddof = Delta Degrees of Freedom”: the divisor used in the calculation is N - ddof, 
     #  where N represents the number of elements. By default ddof is zero.
-    
+
     denominator = np.sqrt(a.var(ddof=1)/a.size + b.var(ddof=1)/b.size)
     
     return np.abs(numerator/denominator)
@@ -18,7 +18,7 @@ def welch_t(a, b):
 def welch_df(a, b):
     
     """ Calculate the effective degrees of freedom for two samples. This function returns the degrees of freedom """
-    
+
     s1 = a.var(ddof=1) 
     s2 = b.var(ddof=1)
     n1 = a.size
@@ -37,10 +37,10 @@ def p_value_welch_ttest(a, b, two_sided=False):
     """
     t = welch_t(a, b)
     df = welch_df(a, b)
-    
+
     p = 1-stats.t.cdf(np.abs(t), df)
-    
+
     if two_sided:
-        return 2*p
+        return 2*p[0]
     else:
-        return p
+        return p[0]
